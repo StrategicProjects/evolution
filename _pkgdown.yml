@@ -1,0 +1,48 @@
+url: https://monitoramento.sepe.pe.gov.br/evolution/
+template:
+  light-switch: false
+  dark-mode: false
+  trailing_slash_redirect: true
+  package: tidytemplate
+  bootstrap: 5
+  bslib:
+
+#includes:
+#  in_header: |
+    # <!-- Google tag (gtag.js) -->
+    # <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLS5W18G7P"></script>
+    # <script>
+    #   window.dataLayer = window.dataLayer || [];
+    #   function gtag(){dataLayer.push(arguments);}
+    #   gtag('js', new Date());
+    #   gtag('config', 'G-DLS5W18G7P');
+    # </script>
+
+navbar:
+  structure:
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/StrategicProjects/evolution/
+      aria-label: Github
+# navbar:
+#   structure:
+#     left:  [intro, reference]
+#     right: [search, github, lightswitch]
+
+footer:
+  structure:
+    left: [rmd]
+    right: [developed_by]
+  components:
+      #p: "\n\n"
+      rmd: |
+        **evolution** is part of an ecosystem of R packages for data analysis and
+        computational document processing<br>developed at the [Secretaria Executiva
+        de Monitoramento Estratégico](https://monitoramento.sepe.pe.gov.br).
+      developed_by: |
+        Developed by André Leite, Diogo Bezerra and Hugo Medeiros
+
+development:
+  mode: auto
