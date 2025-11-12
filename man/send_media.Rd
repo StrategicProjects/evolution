@@ -2,7 +2,7 @@
 % Please edit documentation in R/evolution.R
 \name{send_media}
 \alias{send_media}
-\title{Send media (image, video, document) — robusto para base64}
+\title{Send media (image, video, document) - robust for base64}
 \usage{
 send_media(
   client,
@@ -22,21 +22,22 @@ send_media(
 
 \item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
 
-\item{mediatype}{One of "image","video","document".}
+\item{mediatype}{One of "image", "video", "document".}
 
 \item{mimetype}{e.g., "image/png", "video/mp4", "application/pdf".}
 
-\item{media}{Pode ser: (a) URL http/https; (b) base64 cru (sem prefixo);
-(c) base64 no formato data:*;base64,<...>; (d) caminho de arquivo local.}
+\item{caption}{Caption text (optional).}
 
-\item{file_name}{Nome sugerido (consistente com o mimetype).}
+\item{media}{Can be: (a) HTTP/HTTPS URL; (b) raw base64 (no prefix); (c) base64 in the format data:*;base64,<…>; (d) local file path.}
+
+\item{file_name}{Suggested filename (consistent with the mimetype).}
 
 \item{delay}{Integer (ms). Optional presence delay before sending.}
 
 \item{link_preview}{Logical. Enable URL link preview.}
 
-\item{verbose}{Log detalhado (cli + req_verbose).}
+\item{verbose}{Detailed log output (cli + req_verbose()).}
 }
 \description{
-Send media (image, video, document) — robusto para base64
+Send media (image, video, document) - robust for base64
 }

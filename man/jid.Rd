@@ -7,13 +7,13 @@
 jid(number)
 }
 \arguments{
-\item{number}{Character. Número cru (p. ex., \code{"+5581999..."}).}
+\item{number}{Character. raw number (eg., \code{"+5581999..."}).}
 }
 \value{
 Character JID.
 }
 \description{
-Normalizes a raw number (remove espaços, \code{-}, \code{(}, \verb{)}) e anexa \verb{@s.whatsapp.net}.
+Normalizes a raw number (remove espaces, \code{-}, \code{(}, \verb{)}) and add \verb{@s.whatsapp.net}.
 }
 \examples{
 jid("+5581999...")

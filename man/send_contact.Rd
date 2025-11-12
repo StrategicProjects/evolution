@@ -27,7 +27,7 @@ Parsed JSON response.
 \description{
 Sends one or more contacts following the Evolution API v2 format.
 Automatically generates the \code{wuid} field as \verb{<digits>@s.whatsapp.net}
-from each contact’s phone number (or from \code{number} if not provided).
+from each contact's phone number (or from \code{number} if not provided).
 }
 \examples{
 \dontrun{

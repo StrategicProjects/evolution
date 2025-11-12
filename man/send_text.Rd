@@ -44,6 +44,6 @@ Sends a plain text WhatsApp message using Evolution API v2.
 \examples{
 \dontrun{
 client <- evo_client("https://evolution_api_host", Sys.getenv("EVO_APIKEY"), "chatArgus")
-send_text(client, "+55819...", "Olá", delay = 123, link_preview = FALSE, verbose = TRUE)
+send_text(client, "+55819...", "Ola", delay = 123, link_preview = FALSE, verbose = TRUE)
 }
 }

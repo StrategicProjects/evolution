@@ -60,7 +60,7 @@ evo_client <- function(base_url, api_key, instance) {
     show <- body
     if (!is.null(show$apikey)) show$apikey <- "<redacted>"
     cli::cli_inform("Body:")
-    capture <- utils::capture.output(str(show, give.attr = FALSE))
+    capture <- utils::capture.output(utils::str(show, give.attr = FALSE))
     for (line in capture) {
       cli::cli_inform(line)
     }
@@ -82,8 +82,8 @@ evo_client <- function(base_url, api_key, instance) {
 
 #' Build a WhatsApp JID from a raw number
 #'
-#' @description Normalizes a raw number (remove espaços, `-`, `(`, `)`) e anexa `@s.whatsapp.net`.
-#' @param number Character. Número cru (p. ex., `"+5581999..."`).
+#' @description Normalizes a raw number (remove espaces, `-`, `(`, `)`) and add `@s.whatsapp.net`.
+#' @param number Character. raw number (eg., `"+5581999..."`).
 #' @return Character JID.
 #' @examples
 #' jid("+5581999...")
@@ -112,7 +112,7 @@ jid <- function(number) {
 #' @examples
 #' \dontrun{
 #' client <- evo_client("https://evolution_api_host", Sys.getenv("EVO_APIKEY"), "chatArgus")
-#' send_text(client, "+55819...", "Olá", delay = 123, link_preview = FALSE, verbose = TRUE)
+#' send_text(client, "+55819...", "Ola", delay = 123, link_preview = FALSE, verbose = TRUE)
 #' }
 #' @export
 send_text <- function(client, number, text, delay = NULL,
@@ -158,17 +158,15 @@ send_status <- function(client, type = c("text", "image", "video", "document", "
   .evo_post(client, .evo_path("message", "sendStatus", client$instance), body, verbose = verbose)
 }
 
-# precisa de base64enc
-# install.packages("base64enc")
 
-#' Send media (image, video, document) — robusto para base64
+#' Send media (image, video, document) - robust for base64
 #' @inheritParams send_text
-#' @param mediatype One of "image","video","document".
+#' @param mediatype One of "image", "video", "document".
 #' @param mimetype e.g., "image/png", "video/mp4", "application/pdf".
-#' @param media Pode ser: (a) URL http/https; (b) base64 cru (sem prefixo);
-#'   (c) base64 no formato data:*;base64,<...>; (d) caminho de arquivo local.
-#' @param file_name Nome sugerido (consistente com o mimetype).
-#' @param verbose Log detalhado (cli + req_verbose).
+#' @param media Can be: (a) HTTP/HTTPS URL; (b) raw base64 (no prefix); (c) base64 in the format data:*;base64,<…>; (d) local file path.
+#' @param file_name Suggested filename (consistent with the mimetype).
+#' @param caption Caption text (optional).
+#' @param verbose Detailed log output (cli + req_verbose()).
 #' @export
 send_media <- function(client, number, mediatype, mimetype,
                        caption = NULL, media, file_name,
@@ -180,16 +178,16 @@ send_media <- function(client, number, mediatype, mimetype,
 
   normalize_media_input <- function(x) {
     if (!is.character(x) || length(x) != 1L) {
-      cli::cli_abort("`media` deve ser uma string (URL, base64 ou caminho).")
+      cli::cli_abort("`media` must be a string (URL, base64 or path).")
     }
-    # Caso (a): URL http(s) — devolve como está
+    # Case (a): URL http(s) - keep it
     if (grepl("^https?://", x, ignore.case = TRUE)) {
       return(x)
     }
 
-    # Caso (d): caminho local — lê e base64-encode
+    # Case (b): local path - read base64-encode
     if (file.exists(x)) {
-      b64 <- base64enc::base64encode(x) # sem quebras
+      b64 <- base64enc::base64encode(x)
       return(b64)
     }
 
@@ -198,11 +196,11 @@ send_media <- function(client, number, mediatype, mimetype,
       x <- sub("^data:.*;base64,", "", x)
     }
 
-    # Agora supomos ser base64 cru — removemos espaços/linhas
+    #
     x <- gsub("\\s+", "", x)
-    # Validação mínima: base64 tem apenas [A-Za-z0-9+/=]
+    #
     if (!grepl("^[A-Za-z0-9+/=]+$", x)) {
-      cli::cli_abort("`media` não parece base64 válido nem URL/caminho de arquivo.")
+      cli::cli_abort("`media` does not look like a valid base64 or URL/filepath.")
     }
     x
   }
@@ -271,7 +269,7 @@ send_location <- function(client, number, latitude, longitude, name = NULL, addr
 #'
 #' @description Sends one or more contacts following the Evolution API v2 format.
 #' Automatically generates the `wuid` field as `<digits>@s.whatsapp.net`
-#' from each contact’s phone number (or from `number` if not provided).
+#' from each contact's phone number (or from `number` if not provided).
 #'
 #' @param client An [evo_client()] object.
 #' @param number Recipient number (E.164, e.g. "+55819...").
@@ -302,13 +300,13 @@ send_location <- function(client, number, latitude, longitude, name = NULL, addr
 send_contact <- function(client, number, contact, verbose = FALSE) {
   stopifnot(is.character(number), length(number) == 1L, nzchar(number))
 
-  # Função auxiliar para limpar o número e gerar o wuid
+  #
   to_wuid <- function(num) {
     clean <- gsub("[^0-9]", "", num)
     if (nzchar(clean)) paste0(clean, "@s.whatsapp.net") else NULL
   }
 
-  # Normaliza formato de contato (um ou vários)
+  #
   if (is.list(contact) && !is.null(contact$fullName)) {
     contact <- list(contact)
   }
