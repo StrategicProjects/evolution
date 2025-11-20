@@ -36,7 +36,11 @@ send_text(
 \item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
 }
 \value{
-A list parsed from JSON response.
+A named list parsed from the JSON response returned by Evolution API,
+containing message metadata (IDs, timestamps, queue information) and any
+additional fields defined by the endpoint.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This output represents the API confirmation that the text message was processed.
 }
 \description{
 Sends a plain text WhatsApp message using Evolution API v2.

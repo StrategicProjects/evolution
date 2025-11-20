@@ -16,7 +16,7 @@
 \item{verbose}{Logical. If TRUE, print request/response debug via cli + httr2::req_verbose().}
 }
 \value{
-Parsed JSON as list (invisibly returns raw response as attr \code{http_status}).
+Parsed JSON as list (with raw HTTP status stored in attribute \code{http_status}).
 }
 \description{
 Perform a JSON POST request (internal)

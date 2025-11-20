@@ -24,12 +24,20 @@ evo_client <- function(base_url, api_key, instance) {
 
 # ---- Internals --------------------------------------------------------------
 
+#' Build internal API path
+#'
 #' @keywords internal
+#' @param ... Character path segments.
+#' @return A single character scalar with segments concatenated by "/".
 .evo_path <- function(...) {
   paste0(c(...), collapse = "/")
 }
 
-# compact a list by removing NULLs (jsonlite drops them too)
+#' Compact a list removing NULL elements
+#'
+#' @keywords internal
+#' @param x A list possibly containing `NULL` elements.
+#' @return The same list with all `NULL` elements removed.
 .compact <- function(x) x[!vapply(x, is.null, logical(1))]
 
 #' Perform a JSON POST request (internal)
@@ -39,7 +47,7 @@ evo_client <- function(base_url, api_key, instance) {
 #' @param path   Character. Path to append to the base URL.
 #' @param body   List to be JSON-encoded as the request body.
 #' @param verbose Logical. If TRUE, print request/response debug via cli + httr2::req_verbose().
-#' @return Parsed JSON as list (invisibly returns raw response as attr `http_status`).
+#' @return Parsed JSON as list (with raw HTTP status stored in attribute `http_status`).
 .evo_post <- function(client, path, body, verbose = FALSE) {
   stopifnot(inherits(client, "evo_client"))
   timeout <- getOption("evoapi.timeout", 60)
@@ -108,7 +116,12 @@ jid <- function(number) {
 #' @param mentioned Character vector of JIDs to mention (e.g., `jid("+55...")`).
 #' @param quoted Optional list with Baileys message `key` and `message` (reply-to).
 #' @param verbose Logical. If TRUE, logs request/response details with `cli` and enables `req_verbose()`.
-#' @return A list parsed from JSON response.
+#' @return
+#' A named list parsed from the JSON response returned by Evolution API,
+#' containing message metadata (IDs, timestamps, queue information) and any
+#' additional fields defined by the endpoint.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This output represents the API confirmation that the text message was processed.
 #' @examples
 #' \dontrun{
 #' client <- evo_client("https://evolution_api_host", Sys.getenv("EVO_APIKEY"), "chatArgus")
@@ -141,6 +154,13 @@ send_text <- function(client, number, text, delay = NULL,
 #' @param font Integer font id.
 #' @param all_contacts Logical. Send to all contacts.
 #' @param status_jid_list Optional character vector of JIDs.
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the JSON response returned by Evolution API.
+#' The object contains fields such as `status`, `message`, `queueId`, or
+#' other elements depending on the API endpoint.
+#' The HTTP status code of the request is stored in `attr(result, "http_status")`.
+#' This output represents the API-level confirmation of the status message sent.
 #' @export
 send_status <- function(client, type = c("text", "image", "video", "document", "audio"),
                         content, caption = NULL, background_color = NULL, font = NULL,
@@ -167,6 +187,12 @@ send_status <- function(client, type = c("text", "image", "video", "document", "
 #' @param file_name Suggested filename (consistent with the mimetype).
 #' @param caption Caption text (optional).
 #' @param verbose Detailed log output (cli + req_verbose()).
+#' @return
+#' A named list parsed from the Evolution API JSON response.
+#' The list typically contains message metadata (IDs, timestamps, queue info),
+#' and any additional fields defined by the API for media messages.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This return value represents the server acknowledgement of the media upload/send.
 #' @export
 send_media <- function(client, number, mediatype, mimetype,
                        caption = NULL, media, file_name,
@@ -224,6 +250,13 @@ send_media <- function(client, number, mediatype, mimetype,
 #' Send WhatsApp audio (voice note)
 #' @inheritParams send_text
 #' @param audio URL or base64.
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the JSON response produced by the Evolution API for
+#' audio messages.
+#' The list may include message ID, queue metadata, and delivery-related fields.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This output indicates that the audio message request was accepted by the API.
 #' @export
 send_whatsapp_audio <- function(client, number, audio, delay = NULL,
                                 link_preview = NULL, mentions_everyone = NULL,
@@ -243,6 +276,12 @@ send_whatsapp_audio <- function(client, number, audio, delay = NULL,
 #' Send a sticker
 #' @inheritParams send_text
 #' @param sticker URL or base64 image.
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the Evolution API JSON response, containing
+#' identifiers and metadata about the sticker message.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This output confirms the sticker was accepted and queued/sent by the server.
 #' @export
 send_sticker <- function(client, number, sticker, delay = NULL, verbose = FALSE) {
   body <- list(number = number, sticker = sticker, delay = delay)
@@ -253,6 +292,12 @@ send_sticker <- function(client, number, sticker, delay = NULL, verbose = FALSE)
 #' @inheritParams send_text
 #' @param latitude,longitude Numeric coordinates.
 #' @param name,address Optional character (label/description).
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the JSON output of Evolution API, describing the
+#' location message sent (message ID, queue info, timestamps, etc.).
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This return value is the official server acknowledgement of the location dispatch.
 #' @export
 send_location <- function(client, number, latitude, longitude, name = NULL, address = NULL, verbose = FALSE) {
   body <- list(
@@ -280,7 +325,7 @@ send_location <- function(client, number, latitude, longitude, name = NULL, addr
 #'   The `wuid` field will be auto-generated if missing.
 #' @param verbose Logical; if TRUE, shows detailed logs (cli + httr2 verbose).
 #'
-#' @return Parsed JSON response.
+#' @return Parsed JSON response as list (see [.evo_post()] for details).
 #' @examples
 #' \dontrun{
 #' send_contact(
@@ -325,8 +370,8 @@ send_contact <- function(client, number, contact, verbose = FALSE) {
   ))
 
   .evo_post(client, .evo_path("message", "sendContact", client$instance),
-    body,
-    verbose = verbose
+            body,
+            verbose = verbose
   )
 }
 
@@ -335,6 +380,12 @@ send_contact <- function(client, number, contact, verbose = FALSE) {
 #' @inheritParams send_text
 #' @param key List with `remoteJid`, `fromMe`, `id` of the target message.
 #' @param reaction Emoji like `"\xF0\x9F\x98\x81"`.
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the JSON response of the Evolution API.
+#' Typical fields include message identifiers and acknowledgement metadata.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This return value indicates that the reaction was successfully sent.
 #' @export
 send_reaction <- function(client, key, reaction, verbose = FALSE) {
   body <- list(key = key, reaction = reaction)
@@ -345,6 +396,13 @@ send_reaction <- function(client, key, reaction, verbose = FALSE) {
 #' @inheritParams send_text
 #' @param title,description,footer Character.
 #' @param buttons List of buttons (see API docs).
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the Evolution API JSON response, with metadata
+#' describing the button message (IDs, timestamps, queue details, and
+#' button structure as accepted by the server). Note:  Buttons may be discontinued on Baileys mode; supported on Cloud API.
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This output reflects the server acknowledgement of the button message send.
 #' @details Buttons may be discontinued on Baileys mode; supported on Cloud API.
 #' @export
 send_buttons <- function(client, number, title, description, footer, buttons,
@@ -367,6 +425,13 @@ send_buttons <- function(client, number, title, description, footer, buttons,
 #' @param name Question text.
 #' @param values Character vector of options.
 #' @param selectable_count Integer (# options a user can select).
+#' @param verbose Logical. If TRUE, logs request/response details.
+#' @return
+#' A named list parsed from the JSON response issued by Evolution API,
+#' including fields describing the created poll message (ID, timestamp,
+#' poll options, metadata).
+#' The HTTP status code is stored in `attr(result, "http_status")`.
+#' This output represents the API confirmation that the poll was created and dispatched.
 #' @export
 send_poll <- function(client, number, name, values, selectable_count = 1L, verbose = FALSE) {
   body <- list(

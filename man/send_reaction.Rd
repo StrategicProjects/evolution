@@ -13,7 +13,13 @@ send_reaction(client, key, reaction, verbose = FALSE)
 
 \item{reaction}{Emoji like \code{"\\xF0\\x9F\\x98\\x81"}.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the JSON response of the Evolution API.
+Typical fields include message identifiers and acknowledgement metadata.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This return value indicates that the reaction was successfully sent.
 }
 \description{
 React to a message

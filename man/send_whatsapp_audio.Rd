@@ -33,7 +33,14 @@ send_whatsapp_audio(
 
 \item{quoted}{Optional list with Baileys message \code{key} and \code{message} (reply-to).}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the JSON response produced by the Evolution API for
+audio messages.
+The list may include message ID, queue metadata, and delivery-related fields.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This output indicates that the audio message request was accepted by the API.
 }
 \description{
 Send WhatsApp audio (voice note)

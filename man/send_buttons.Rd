@@ -32,7 +32,14 @@ send_buttons(
 
 \item{mentions_everyone}{Logical. Mention everyone (if applicable).}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the Evolution API JSON response, with metadata
+describing the button message (IDs, timestamps, queue details, and
+button structure as accepted by the server). Note:  Buttons may be discontinued on Baileys mode; supported on Cloud API.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This output reflects the server acknowledgement of the button message send.
 }
 \description{
 Send Buttons

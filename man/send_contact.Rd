@@ -22,7 +22,7 @@ The \code{wuid} field will be auto-generated if missing.
 \item{verbose}{Logical; if TRUE, shows detailed logs (cli + httr2 verbose).}
 }
 \value{
-Parsed JSON response.
+Parsed JSON response as list (see \code{\link[=.evo_post]{.evo_post()}} for details).
 }
 \description{
 Sends one or more contacts following the Evolution API v2 format.

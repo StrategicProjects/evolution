@@ -38,6 +38,13 @@ send_media(
 
 \item{verbose}{Detailed log output (cli + req_verbose()).}
 }
+\value{
+A named list parsed from the Evolution API JSON response.
+The list typically contains message metadata (IDs, timestamps, queue info),
+and any additional fields defined by the API for media messages.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This return value represents the server acknowledgement of the media upload/send.
+}
 \description{
 Send media (image, video, document) - robust for base64
 }

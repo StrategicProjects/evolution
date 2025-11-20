@@ -17,7 +17,14 @@ send_poll(client, number, name, values, selectable_count = 1L, verbose = FALSE)
 
 \item{selectable_count}{Integer (# options a user can select).}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the JSON response issued by Evolution API,
+including fields describing the created poll message (ID, timestamp,
+poll options, metadata).
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This output represents the API confirmation that the poll was created and dispatched.
 }
 \description{
 Send a poll

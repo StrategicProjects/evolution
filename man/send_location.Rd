@@ -23,7 +23,13 @@ send_location(
 
 \item{name, address}{Optional character (label/description).}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the JSON output of Evolution API, describing the
+location message sent (message ID, queue info, timestamps, etc.).
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This return value is the official server acknowledgement of the location dispatch.
 }
 \description{
 Send a location

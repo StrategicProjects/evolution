@@ -15,7 +15,13 @@ send_sticker(client, number, sticker, delay = NULL, verbose = FALSE)
 
 \item{delay}{Integer (ms). Optional presence delay before sending.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the Evolution API JSON response, containing
+identifiers and metadata about the sticker message.
+The HTTP status code is stored in \code{attr(result, "http_status")}.
+This output confirms the sticker was accepted and queued/sent by the server.
 }
 \description{
 Send a sticker

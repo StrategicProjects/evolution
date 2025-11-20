@@ -33,7 +33,14 @@ send_status(
 
 \item{status_jid_list}{Optional character vector of JIDs.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If TRUE, logs request/response details.}
+}
+\value{
+A named list parsed from the JSON response returned by Evolution API.
+The object contains fields such as \code{status}, \code{message}, \code{queueId}, or
+other elements depending on the API endpoint.
+The HTTP status code of the request is stored in \code{attr(result, "http_status")}.
+This output represents the API-level confirmation of the status message sent.
 }
 \description{
 Send a WhatsApp Status (story)
