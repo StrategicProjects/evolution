@@ -14,7 +14,7 @@ Description: Provides an 'R' interface to the 'Evolution API'
     polls, interactive lists and button messages. Also includes number
     verification and structured CLI logging for debugging.
 License: MIT + file LICENSE
-URL: https://github.com/StrategicProjects/evolution/
+URL: https://strategicprojects.github.io/evolution/, https://github.com/StrategicProjects/evolution/
 BugReports: https://github.com/StrategicProjects/evolution/issues/
 Depends: 
   R (>= 4.2.0)

@@ -24,7 +24,7 @@ send_status(
 - client:
 
   An
-  [`evo_client()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/evo_client.md)
+  [`evo_client()`](https://strategicprojects.github.io/evolution/reference/evo_client.md)
   object.
 
 - type:

@@ -64,36 +64,36 @@ send_text(client, "5581999990000", "Hello from R!", verbose = TRUE)
 
 | Function | Description | Key Arguments |
 |----|----|----|
-| [`evo_client()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/evo_client.md) | Creates preconfigured API client | `base_url`, `api_key`, `instance` |
-| [`send_text()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_text.md) | Sends plain text message | `number`, `text`, `delay`, `verbose` |
-| [`send_status()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_status.md) | Posts a status/story (text or media) | `type`, `content`, `caption`, `verbose` |
-| [`send_media()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_media.md) | Sends image/video/document (URL, base64, or file) | `number`, `mediatype`, `mimetype`, `media`, `file_name` |
-| [`send_whatsapp_audio()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_whatsapp_audio.md) | Sends voice note (PTT) | `number`, `audio`, `verbose` |
-| [`send_sticker()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_sticker.md) | Sends sticker (URL or base64) | `number`, `sticker`, `verbose` |
-| [`send_location()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_location.md) | Sends location pin | `number`, `latitude`, `longitude`, `name` |
-| [`send_contact()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_contact.md) | Sends one or more contacts (auto wuid) | `number`, `contact`, `verbose` |
-| [`send_reaction()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_reaction.md) | Sends emoji reaction to a message | `key`, `reaction`, `verbose` |
-| [`send_buttons()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_buttons.md) | Sends message with interactive buttons ⚠️ | `number`, `buttons`, `verbose` |
-| [`send_poll()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_poll.md) | Sends a poll | `number`, `name`, `values`, `verbose` |
-| [`send_list()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_list.md) | Sends an interactive list message ⚠️ | `number`, `sections`, `button_text` |
-| [`check_is_whatsapp()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/check_is_whatsapp.md) | Checks if numbers are on WhatsApp | `numbers` |
-| [`jid()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/jid.md) | Builds WhatsApp JID from phone number | `number` |
+| [`evo_client()`](https://strategicprojects.github.io/evolution/reference/evo_client.md) | Creates preconfigured API client | `base_url`, `api_key`, `instance` |
+| [`send_text()`](https://strategicprojects.github.io/evolution/reference/send_text.md) | Sends plain text message | `number`, `text`, `delay`, `verbose` |
+| [`send_status()`](https://strategicprojects.github.io/evolution/reference/send_status.md) | Posts a status/story (text or media) | `type`, `content`, `caption`, `verbose` |
+| [`send_media()`](https://strategicprojects.github.io/evolution/reference/send_media.md) | Sends image/video/document (URL, base64, or file) | `number`, `mediatype`, `mimetype`, `media`, `file_name` |
+| [`send_whatsapp_audio()`](https://strategicprojects.github.io/evolution/reference/send_whatsapp_audio.md) | Sends voice note (PTT) | `number`, `audio`, `verbose` |
+| [`send_sticker()`](https://strategicprojects.github.io/evolution/reference/send_sticker.md) | Sends sticker (URL or base64) | `number`, `sticker`, `verbose` |
+| [`send_location()`](https://strategicprojects.github.io/evolution/reference/send_location.md) | Sends location pin | `number`, `latitude`, `longitude`, `name` |
+| [`send_contact()`](https://strategicprojects.github.io/evolution/reference/send_contact.md) | Sends one or more contacts (auto wuid) | `number`, `contact`, `verbose` |
+| [`send_reaction()`](https://strategicprojects.github.io/evolution/reference/send_reaction.md) | Sends emoji reaction to a message | `key`, `reaction`, `verbose` |
+| [`send_buttons()`](https://strategicprojects.github.io/evolution/reference/send_buttons.md) | Sends message with interactive buttons ⚠️ | `number`, `buttons`, `verbose` |
+| [`send_poll()`](https://strategicprojects.github.io/evolution/reference/send_poll.md) | Sends a poll | `number`, `name`, `values`, `verbose` |
+| [`send_list()`](https://strategicprojects.github.io/evolution/reference/send_list.md) | Sends an interactive list message ⚠️ | `number`, `sections`, `button_text` |
+| [`check_is_whatsapp()`](https://strategicprojects.github.io/evolution/reference/check_is_whatsapp.md) | Checks if numbers are on WhatsApp | `numbers` |
+| [`jid()`](https://strategicprojects.github.io/evolution/reference/jid.md) | Builds WhatsApp JID from phone number | `number` |
 
 > ⚠️
-> **[`send_buttons()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_buttons.md)
+> **[`send_buttons()`](https://strategicprojects.github.io/evolution/reference/send_buttons.md)
 > and
-> [`send_list()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_list.md)
+> [`send_list()`](https://strategicprojects.github.io/evolution/reference/send_list.md)
 > — Baileys users:** Interactive buttons and list messages are **not
 > supported** on the Baileys (WhatsApp Web) connector and are likely to
 > be discontinued by Evolution API. Use
-> [`send_poll()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_poll.md)
+> [`send_poll()`](https://strategicprojects.github.io/evolution/reference/send_poll.md)
 > instead. These endpoints work only on the **Cloud API** connector.
 
 > 💡 **Local file support:**
-> [`send_media()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_media.md),
-> [`send_sticker()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_sticker.md),
+> [`send_media()`](https://strategicprojects.github.io/evolution/reference/send_media.md),
+> [`send_sticker()`](https://strategicprojects.github.io/evolution/reference/send_sticker.md),
 > and
-> [`send_whatsapp_audio()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_whatsapp_audio.md)
+> [`send_whatsapp_audio()`](https://strategicprojects.github.io/evolution/reference/send_whatsapp_audio.md)
 > accept local file paths (including `~/...`) — files are auto-encoded
 > to base64 via [base64enc](https://www.rforge.net/base64enc).
 
@@ -218,7 +218,7 @@ sanitised logs (remove API keys and phone numbers).
 ## License
 
 MIT © 2025 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
-[LICENSE](https://monitoramento.sepe.pe.gov.br/evolution/LICENSE) for
+[LICENSE](https://strategicprojects.github.io/evolution/LICENSE) for
 details.
 
 # Package index
@@ -227,57 +227,57 @@ details.
 
 Create and configure the API client.
 
-- [`evo_client()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/evo_client.md)
+- [`evo_client()`](https://strategicprojects.github.io/evolution/reference/evo_client.md)
   : Create an Evolution API client
 
 ## Send Messages
 
 Functions to send different types of WhatsApp messages.
 
-- [`send_text()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_text.md)
+- [`send_text()`](https://strategicprojects.github.io/evolution/reference/send_text.md)
   : Send a plain text message
-- [`send_media()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_media.md)
+- [`send_media()`](https://strategicprojects.github.io/evolution/reference/send_media.md)
   : Send media (image, video, document)
-- [`send_whatsapp_audio()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_whatsapp_audio.md)
+- [`send_whatsapp_audio()`](https://strategicprojects.github.io/evolution/reference/send_whatsapp_audio.md)
   : Send WhatsApp audio (voice note)
-- [`send_sticker()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_sticker.md)
+- [`send_sticker()`](https://strategicprojects.github.io/evolution/reference/send_sticker.md)
   : Send a sticker
-- [`send_location()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_location.md)
+- [`send_location()`](https://strategicprojects.github.io/evolution/reference/send_location.md)
   : Send a location
-- [`send_contact()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_contact.md)
+- [`send_contact()`](https://strategicprojects.github.io/evolution/reference/send_contact.md)
   : Send a WhatsApp contact (auto-generate wuid)
-- [`send_status()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_status.md)
+- [`send_status()`](https://strategicprojects.github.io/evolution/reference/send_status.md)
   : Send a WhatsApp Status (story)
-- [`send_reaction()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_reaction.md)
+- [`send_reaction()`](https://strategicprojects.github.io/evolution/reference/send_reaction.md)
   : React to a message
-- [`send_buttons()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_buttons.md)
+- [`send_buttons()`](https://strategicprojects.github.io/evolution/reference/send_buttons.md)
   : Send interactive buttons
-- [`send_poll()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_poll.md)
+- [`send_poll()`](https://strategicprojects.github.io/evolution/reference/send_poll.md)
   : Send a poll
-- [`send_list()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_list.md)
+- [`send_list()`](https://strategicprojects.github.io/evolution/reference/send_list.md)
   : Send a list message
 
 ## Chat Utilities
 
 Query and verify WhatsApp numbers.
 
-- [`check_is_whatsapp()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/check_is_whatsapp.md)
+- [`check_is_whatsapp()`](https://strategicprojects.github.io/evolution/reference/check_is_whatsapp.md)
   : Check if numbers are on WhatsApp
-- [`jid()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/jid.md)
+- [`jid()`](https://strategicprojects.github.io/evolution/reference/jid.md)
   : Build a WhatsApp JID from a raw phone number
 
 ## Internals
 
 Internal helper functions (not exported).
 
-- [`.assert_scalar_string()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-assert_scalar_string.md)
+- [`.assert_scalar_string()`](https://strategicprojects.github.io/evolution/reference/dot-assert_scalar_string.md)
   : Assert that a value is a single non-empty string
-- [`.compact()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-compact.md)
+- [`.compact()`](https://strategicprojects.github.io/evolution/reference/dot-compact.md)
   : Compact a list removing NULL elements
-- [`.evo_path()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-evo_path.md)
+- [`.evo_path()`](https://strategicprojects.github.io/evolution/reference/dot-evo_path.md)
   : Build internal API path
-- [`.evo_post()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-evo_post.md)
+- [`.evo_post()`](https://strategicprojects.github.io/evolution/reference/dot-evo_post.md)
   : Perform a JSON POST request (internal)
-- [`.normalize_media()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-normalize_media.md)
+- [`.normalize_media()`](https://strategicprojects.github.io/evolution/reference/dot-normalize_media.md)
   : Normalise media input (URL, file path, base64, data-URI)
 

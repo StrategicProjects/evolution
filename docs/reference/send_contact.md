@@ -15,7 +15,7 @@ send_contact(client, number, contact, verbose = FALSE)
 - client:
 
   An
-  [`evo_client()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/evo_client.md)
+  [`evo_client()`](https://strategicprojects.github.io/evolution/reference/evo_client.md)
   object.
 
 - number:
@@ -39,7 +39,7 @@ send_contact(client, number, contact, verbose = FALSE)
 ## Value
 
 Parsed JSON response as list (see
-[`.evo_post()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/dot-evo_post.md)
+[`.evo_post()`](https://strategicprojects.github.io/evolution/reference/dot-evo_post.md)
 for details).
 
 ## Examples

@@ -37,9 +37,9 @@ An object of class `evo_client` with fields `req` (httr2 request) and
 
 ## See also
 
-[`send_text()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_text.md),
-[`send_media()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_media.md),
-[`send_location()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_location.md)
+[`send_text()`](https://strategicprojects.github.io/evolution/reference/send_text.md),
+[`send_media()`](https://strategicprojects.github.io/evolution/reference/send_media.md),
+[`send_location()`](https://strategicprojects.github.io/evolution/reference/send_location.md)
 
 ## Examples
 

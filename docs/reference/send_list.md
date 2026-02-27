@@ -24,7 +24,7 @@ send_list(
 - client:
 
   An
-  [`evo_client()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/evo_client.md)
+  [`evo_client()`](https://strategicprojects.github.io/evolution/reference/evo_client.md)
   object.
 
 - number:
@@ -74,12 +74,12 @@ A named list with the API response. The HTTP status code is stored in
 on the Baileys (WhatsApp Web) connector and are likely to be
 discontinued. This endpoint is fully supported only on the **Cloud API**
 connector. If you are on Baileys, consider using
-[`send_poll()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_poll.md)
+[`send_poll()`](https://strategicprojects.github.io/evolution/reference/send_poll.md)
 as an alternative.
 
 ## See also
 
-[`send_poll()`](https://monitoramento.sepe.pe.gov.br/evolution/reference/send_poll.md)
+[`send_poll()`](https://strategicprojects.github.io/evolution/reference/send_poll.md)
 
 ## Examples
 
