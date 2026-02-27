@@ -7,21 +7,34 @@
 evo_client(base_url, api_key, instance)
 }
 \arguments{
-\item{base_url}{Character. Server base URL (no trailing slash), e.g. \code{"https://your-host"}.}
+\item{base_url}{Character. Server base URL (no trailing slash), e.g.
+\code{"https://your-host"}.}
 
-\item{api_key}{Character. API key (sent as \code{apikey} header).}
+\item{api_key}{Character. API key (sent as \code{apikey} header).
+Prefer \code{Sys.getenv("EVO_APIKEY")} to avoid hardcoding secrets.}
 
 \item{instance}{Character. Instance name/ID used in endpoint paths.}
 }
 \value{
-An object of class \code{evo_client} with fields \code{req} (httr2 request) and \code{instance}.
+An object of class \code{evo_client} with fields \code{req} (httr2 request)
+and \code{instance}.
 }
 \description{
 Creates a preconfigured \strong{httr2} client to call Evolution API v2.
 It sets the \code{apikey} header, a custom User-Agent and basic automatic retries.
+
+The returned object is used by every \verb{send_*()} function and stores the base
+request (\code{req}) and the instance name so you don't have to repeat them.
 }
 \examples{
 \dontrun{
-client <- evo_client("https://evolution_api_host", "KEY", "chatArgus")
+client <- evo_client(
+  base_url = "https://your-evolution-host.com",
+  api_key  = Sys.getenv("EVO_APIKEY"),
+  instance = "myInstance"
+)
 }
+}
+\seealso{
+\code{\link[=send_text]{send_text()}}, \code{\link[=send_media]{send_media()}}, \code{\link[=send_location]{send_location()}}
 }

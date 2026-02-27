@@ -2,16 +2,16 @@
 % Please edit documentation in R/evolution.R
 \name{send_media}
 \alias{send_media}
-\title{Send media (image, video, document) - robust for base64}
+\title{Send media (image, video, document)}
 \usage{
 send_media(
   client,
   number,
   mediatype,
   mimetype,
-  caption = NULL,
   media,
   file_name,
+  caption = NULL,
   delay = NULL,
   link_preview = NULL,
   verbose = FALSE
@@ -20,31 +20,49 @@ send_media(
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{mediatype}{One of "image", "video", "document".}
+\item{mediatype}{One of \code{"image"}, \code{"video"}, \code{"document"}.}
 
-\item{mimetype}{e.g., "image/png", "video/mp4", "application/pdf".}
+\item{mimetype}{MIME type string, e.g., \code{"image/png"}, \code{"video/mp4"},
+\code{"application/pdf"}.}
 
-\item{caption}{Caption text (optional).}
+\item{media}{The media content. Can be: (a) an HTTP/HTTPS URL;
+(b) a local file path; (c) raw base64; or
+(d) a data-URI (\verb{data:*;base64,...}).}
 
-\item{media}{Can be: (a) HTTP/HTTPS URL; (b) raw base64 (no prefix); (c) base64 in the format data:*;base64,<…>; (d) local file path.}
+\item{file_name}{Suggested filename for the recipient
+(should match the MIME type, e.g., \code{"report.pdf"}).}
 
-\item{file_name}{Suggested filename (consistent with the mimetype).}
+\item{caption}{Optional caption text displayed with the media.}
 
-\item{delay}{Integer (ms). Optional presence delay before sending.}
+\item{delay}{Integer (ms). Optional presence delay before sending.
+Simulates typing before the message is sent.}
 
-\item{link_preview}{Logical. Enable URL link preview.}
+\item{link_preview}{Logical. Enable URL link preview in the message.}
 
-\item{verbose}{Detailed log output (cli + req_verbose()).}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the Evolution API JSON response.
-The list typically contains message metadata (IDs, timestamps, queue info),
-and any additional fields defined by the API for media messages.
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This return value represents the server acknowledgement of the media upload/send.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send media (image, video, document) - robust for base64
+Sends an image, video, or document via Evolution API v2.
+The \code{media} argument is flexible: it accepts an HTTP(S) URL, a local
+file path (auto-encoded to base64), raw base64, or a data-URI.
+}
+\examples{
+\dontrun{
+# From URL
+send_media(client, "5581999990000", "image", "image/png",
+           media = "https://www.r-project.org/logo/Rlogo.png",
+           file_name = "Rlogo.png", caption = "R Logo")
+
+# From local file
+send_media(client, "5581999990000", "document", "application/pdf",
+           media = "report.pdf", file_name = "report.pdf")
+}
 }

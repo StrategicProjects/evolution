@@ -2,19 +2,26 @@
 % Please edit documentation in R/evolution.R
 \name{jid}
 \alias{jid}
-\title{Build a WhatsApp JID from a raw number}
+\title{Build a WhatsApp JID from a raw phone number}
 \usage{
 jid(number)
 }
 \arguments{
-\item{number}{Character. raw number (eg., \code{"+5581999..."}).}
+\item{number}{Character scalar or vector. Raw phone number(s)
+(e.g., \code{"+5581999990000"}).}
 }
 \value{
-Character JID.
+Character JID(s) (e.g., \code{"5581999990000@s.whatsapp.net"}).
 }
 \description{
-Normalizes a raw number (remove espaces, \code{-}, \code{(}, \verb{)}) and add \verb{@s.whatsapp.net}.
+Normalises a raw phone number by removing spaces, dashes,
+parentheses, and the leading \code{+} sign, then appends
+\verb{@s.whatsapp.net}.
 }
 \examples{
-jid("+5581999...")
+jid("+55 81 99999-0000")
+#> "5581999990000@s.whatsapp.net"
+
+jid("5581999990000")
+#> "5581999990000@s.whatsapp.net"
 }

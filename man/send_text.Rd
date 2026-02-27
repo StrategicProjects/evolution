@@ -19,35 +19,42 @@ send_text(
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
 \item{text}{Character. Message body.}
 
-\item{delay}{Integer (ms). Optional presence delay before sending.}
+\item{delay}{Integer (ms). Optional presence delay before sending.
+Simulates typing before the message is sent.}
 
-\item{link_preview}{Logical. Enable URL link preview.}
+\item{link_preview}{Logical. Enable URL link preview in the message.}
 
-\item{mentions_everyone}{Logical. Mention everyone (if applicable).}
+\item{mentions_everyone}{Logical. Mention everyone in a group.}
 
-\item{mentioned}{Character vector of JIDs to mention (e.g., \code{jid("+55...")}).}
+\item{mentioned}{Character vector of JIDs to mention
+(e.g., \code{jid("+5581999990000")}).}
 
-\item{quoted}{Optional list with Baileys message \code{key} and \code{message} (reply-to).}
+\item{quoted}{Optional list with Baileys message \code{key} and \code{message}
+to reply to a specific message.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details with \code{cli} and enables \code{req_verbose()}.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON response returned by Evolution API,
-containing message metadata (IDs, timestamps, queue information) and any
-additional fields defined by the endpoint.
+A named list parsed from the JSON response returned by Evolution
+API, containing the message \code{key} (with \code{remoteJid}, \code{fromMe}, \code{id}),
+\code{message}, \code{messageTimestamp}, and \code{status}.
 The HTTP status code is stored in \code{attr(result, "http_status")}.
-This output represents the API confirmation that the text message was processed.
 }
 \description{
 Sends a plain text WhatsApp message using Evolution API v2.
 }
 \examples{
 \dontrun{
-client <- evo_client("https://evolution_api_host", Sys.getenv("EVO_APIKEY"), "chatArgus")
-send_text(client, "+55819...", "Ola", delay = 123, link_preview = FALSE, verbose = TRUE)
+client <- evo_client("https://my-host", Sys.getenv("EVO_APIKEY"), "myInst")
+send_text(client, "5581999990000", "Hello from R!", verbose = TRUE)
 }
+}
+\seealso{
+\code{\link[=send_media]{send_media()}}, \code{\link[=send_location]{send_location()}}, \code{\link[=jid]{jid()}}
 }

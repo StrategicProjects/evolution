@@ -9,18 +9,28 @@ send_reaction(client, key, reaction, verbose = FALSE)
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{key}{List with \code{remoteJid}, \code{fromMe}, \code{id} of the target message.}
+\item{key}{List with \code{remoteJid}, \code{fromMe}, and \code{id} identifying the
+target message.}
 
-\item{reaction}{Emoji like \code{"\\xF0\\x9F\\x98\\x81"}.}
+\item{reaction}{Emoji string (e.g., \code{"\\U0001f44d"} for thumbs up).
+Use an empty string \code{""} to remove a reaction.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON response of the Evolution API.
-Typical fields include message identifiers and acknowledgement metadata.
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This return value indicates that the reaction was successfully sent.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-React to a message
+Sends an emoji reaction to an existing message.
+}
+\examples{
+\dontrun{
+send_reaction(client, key = list(
+  remoteJid = "5581999990000@s.whatsapp.net",
+  fromMe = TRUE,
+  id = "BAE594145F4C59B4"
+), reaction = "\U0001f44d")
+}
 }

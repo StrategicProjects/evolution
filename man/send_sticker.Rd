@@ -9,20 +9,28 @@ send_sticker(client, number, sticker, delay = NULL, verbose = FALSE)
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{sticker}{URL or base64 image.}
+\item{sticker}{URL, base64-encoded sticker image, or local file path
+(auto-encoded to base64). Supports \code{~} expansion.}
 
-\item{delay}{Integer (ms). Optional presence delay before sending.}
+\item{delay}{Integer (ms). Optional presence delay before sending.
+Simulates typing before the message is sent.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the Evolution API JSON response, containing
-identifiers and metadata about the sticker message.
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This output confirms the sticker was accepted and queued/sent by the server.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send a sticker
+Sends a sticker image via Evolution API v2.
+}
+\examples{
+\dontrun{
+send_sticker(client, "5581999990000",
+             sticker = "https://example.com/sticker.webp")
+}
 }

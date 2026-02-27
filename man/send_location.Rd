@@ -17,20 +17,31 @@ send_location(
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{latitude, longitude}{Numeric coordinates.}
+\item{latitude}{Numeric. Latitude coordinate.}
 
-\item{name, address}{Optional character (label/description).}
+\item{longitude}{Numeric. Longitude coordinate.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{name}{Optional character. Location label name.}
+
+\item{address}{Optional character. Address description.}
+
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON output of Evolution API, describing the
-location message sent (message ID, queue info, timestamps, etc.).
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This return value is the official server acknowledgement of the location dispatch.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send a location
+Sends a geographic location pin via Evolution API v2.
+}
+\examples{
+\dontrun{
+send_location(client, "5581999990000",
+              latitude = -8.05, longitude = -34.88,
+              name = "Recife Antigo", address = "Marco Zero")
+}
 }

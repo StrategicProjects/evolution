@@ -9,9 +9,6 @@ send_whatsapp_audio(
   number,
   audio,
   delay = NULL,
-  link_preview = NULL,
-  mentions_everyone = NULL,
-  mentioned = NULL,
   quoted = NULL,
   verbose = FALSE
 )
@@ -19,29 +16,32 @@ send_whatsapp_audio(
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{audio}{URL or base64.}
+\item{audio}{URL, base64-encoded audio, or local file path
+(auto-encoded to base64). Supports \code{~} expansion.}
 
-\item{delay}{Integer (ms). Optional presence delay before sending.}
+\item{delay}{Integer (ms). Optional presence delay before sending.
+Simulates typing before the message is sent.}
 
-\item{link_preview}{Logical. Enable URL link preview.}
+\item{quoted}{Optional list with Baileys message \code{key} and \code{message}
+to reply to a specific message.}
 
-\item{mentions_everyone}{Logical. Mention everyone (if applicable).}
-
-\item{mentioned}{Character vector of JIDs to mention (e.g., \code{jid("+55...")}).}
-
-\item{quoted}{Optional list with Baileys message \code{key} and \code{message} (reply-to).}
-
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON response produced by the Evolution API for
-audio messages.
-The list may include message ID, queue metadata, and delivery-related fields.
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This output indicates that the audio message request was accepted by the API.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send WhatsApp audio (voice note)
+Sends an audio message (push-to-talk / voice note) via
+Evolution API v2.
+}
+\examples{
+\dontrun{
+send_whatsapp_audio(client, "5581999990000",
+                    audio = "https://example.com/note.ogg")
+}
 }

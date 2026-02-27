@@ -2,14 +2,14 @@
 % Please edit documentation in R/evolution.R
 \name{send_contact}
 \alias{send_contact}
-\title{Send a WhatsApp contact (auto-generate wuid as @s.whatsapp.net)}
+\title{Send a WhatsApp contact (auto-generate wuid)}
 \usage{
 send_contact(client, number, contact, verbose = FALSE)
 }
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Recipient number (E.164, e.g. "+55819...").}
+\item{number}{Recipient number (e.g., \code{"5581999990000"}).}
 
 \item{contact}{Either:
 \itemize{
@@ -19,29 +19,26 @@ send_contact(client, number, contact, verbose = FALSE)
 The \code{wuid} field will be auto-generated if missing.
 }}
 
-\item{verbose}{Logical; if TRUE, shows detailed logs (cli + httr2 verbose).}
+\item{verbose}{Logical; if \code{TRUE}, shows detailed logs.}
 }
 \value{
 Parsed JSON response as list (see \code{\link[=.evo_post]{.evo_post()}} for details).
 }
 \description{
-Sends one or more contacts following the Evolution API v2 format.
-Automatically generates the \code{wuid} field as \verb{<digits>@s.whatsapp.net}
-from each contact's phone number (or from \code{number} if not provided).
+Sends one or more contacts following the Evolution API v2
+format. Automatically generates the \code{wuid} field as
+\verb{<digits>@s.whatsapp.net} from each contact's phone number
+(or from \code{number} if not provided).
 }
 \examples{
 \dontrun{
-send_contact(
-  client,
-  number = "+55819...",
+send_contact(client, "5581999990000",
   contact = list(
-    fullName = "Your Name",
-    phoneNumber = "+55819...",
-    organization = "Company Name",
-    email = "andre@example.com",
-    url = "https://company_site.tec.br"
-  ),
-  verbose = TRUE
-)
+    fullName     = "Jane Doe",
+    phoneNumber  = "+5581999990000",
+    organization = "Company Ltd.",
+    email = "jane@example.com",
+    url   = "https://company.com"
+  ))
 }
 }

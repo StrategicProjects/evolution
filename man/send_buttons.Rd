@@ -2,7 +2,7 @@
 % Please edit documentation in R/evolution.R
 \name{send_buttons}
 \alias{send_buttons}
-\title{Send Buttons}
+\title{Send interactive buttons}
 \usage{
 send_buttons(
   client,
@@ -20,30 +20,53 @@ send_buttons(
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{title, description, footer}{Character.}
+\item{title}{Character. Button message title.}
 
-\item{buttons}{List of buttons (see API docs).}
+\item{description}{Character. Button message description/body.}
 
-\item{delay}{Integer (ms). Optional presence delay before sending.}
+\item{footer}{Character. Footer text.}
 
-\item{link_preview}{Logical. Enable URL link preview.}
+\item{buttons}{List of buttons. Each button should be a named list
+following the API specification (see Evolution API docs).}
 
-\item{mentions_everyone}{Logical. Mention everyone (if applicable).}
+\item{delay}{Integer (ms). Optional presence delay before sending.
+Simulates typing before the message is sent.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{link_preview}{Logical. Enable URL link preview in the message.}
+
+\item{mentions_everyone}{Logical. Mention everyone in a group.}
+
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the Evolution API JSON response, with metadata
-describing the button message (IDs, timestamps, queue details, and
-button structure as accepted by the server). Note:  Buttons may be discontinued on Baileys mode; supported on Cloud API.
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This output reflects the server acknowledgement of the button message send.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send Buttons
+Sends a message with interactive buttons via Evolution API v2.
 }
-\details{
-Buttons may be discontinued on Baileys mode; supported on Cloud API.
+\note{
+\strong{Baileys connector:} Interactive buttons are \strong{not supported} on
+the Baileys (WhatsApp Web) connector and are likely to be discontinued.
+This endpoint is fully supported only on the \strong{Cloud API} connector.
+If you are on Baileys, consider using \code{\link[=send_poll]{send_poll()}} as an alternative.
+}
+\examples{
+\dontrun{
+send_buttons(client, "5581999990000",
+  title = "Choose",
+  description = "Pick an option:",
+  footer = "Powered by R",
+  buttons = list(
+    list(type = "reply", title = "Option A"),
+    list(type = "reply", title = "Option B")
+  ))
+}
+}
+\seealso{
+\code{\link[=send_poll]{send_poll()}}
 }

@@ -23,25 +23,32 @@ send_status(
 
 \item{content}{Text (for \code{type = "text"}) or URL/base64 for media.}
 
-\item{caption}{Optional caption for media.}
+\item{caption}{Optional caption for media types.}
 
-\item{background_color}{Hex color for text status background.}
+\item{background_color}{Hex colour for text status background
+(e.g., \code{"#FF5733"}).}
 
-\item{font}{Integer font id.}
+\item{font}{Integer font id (0--14).}
 
-\item{all_contacts}{Logical. Send to all contacts.}
+\item{all_contacts}{Logical. If \code{TRUE}, sends to all contacts.}
 
-\item{status_jid_list}{Optional character vector of JIDs.}
+\item{status_jid_list}{Optional character vector of specific JIDs to
+receive the status.}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON response returned by Evolution API.
-The object contains fields such as \code{status}, \code{message}, \code{queueId}, or
-other elements depending on the API endpoint.
-The HTTP status code of the request is stored in \code{attr(result, "http_status")}.
-This output represents the API-level confirmation of the status message sent.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send a WhatsApp Status (story)
+Posts a status (story) message visible to your contacts.
+Supports text or media (image, video, document, audio) types.
+}
+\examples{
+\dontrun{
+send_status(client, type = "text", content = "Hello from R!",
+            background_color = "#317873", font = 2, all_contacts = TRUE)
+}
 }

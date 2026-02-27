@@ -1,13 +1,18 @@
 Package: evolution
 Type: Package
 Title: A Client for 'Evolution Cloud API'
-Date: 2025-11-17
-Version: 0.0.1
+Date: 2026-02-27
+Version: 0.1.0
 Authors@R: c(
   person("Andre", "Leite", email = "leite@castlab.org", role = c("aut", "cre")),
-  person("Hugo", "Vaconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),
+  person("Hugo", "Vasconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),
   person("Diogo", "Bezerra", email = "diogo.bezerra@ufpe.br", role = "aut"))
-Description: Provides an 'R' interface to the 'Evolution API' <https://evoapicloud.com>, enabling sending and receiving 'WhatsApp' messages directly from 'R'. Functions include sending text, images, documents, stickers, geographic locations, and interactive messages (lists). Also includes 'webhook' parsing utilities and channel health checks.
+Description: Provides an 'R' interface to the 'Evolution API'
+    <https://evoapicloud.com>, enabling sending and receiving 'WhatsApp'
+    messages directly from 'R'. Functions include sending text, media
+    (image/video/document), audio, stickers, geographic locations, contacts,
+    polls, interactive lists and button messages. Also includes number
+    verification and structured CLI logging for debugging.
 License: MIT + file LICENSE
 URL: https://github.com/StrategicProjects/evolution/
 BugReports: https://github.com/StrategicProjects/evolution/issues/
@@ -16,6 +21,7 @@ Depends:
 Imports:
   httr2 (>= 1.0.0),
   cli (>= 3.6.0),
+  jsonlite,
   base64enc
 Suggests: 
   testthat (>= 3.0.0),

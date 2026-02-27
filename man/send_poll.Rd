@@ -9,23 +9,32 @@ send_poll(client, number, name, values, selectable_count = 1L, verbose = FALSE)
 \arguments{
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
-\item{number}{Character. Recipient in E.164 format (e.g., \code{"+5581999..."}).}
+\item{number}{Character. Recipient number with country code
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
 
-\item{name}{Question text.}
+\item{name}{Question text displayed in the poll.}
 
-\item{values}{Character vector of options.}
+\item{values}{Character vector of poll options (minimum 2).}
 
-\item{selectable_count}{Integer (# options a user can select).}
+\item{selectable_count}{Integer. Number of options a user can select
+(default \code{1L} for single-choice).}
 
-\item{verbose}{Logical. If TRUE, logs request/response details.}
+\item{verbose}{Logical. If \code{TRUE}, logs request/response details with
+\strong{cli}.}
 }
 \value{
-A named list parsed from the JSON response issued by Evolution API,
-including fields describing the created poll message (ID, timestamp,
-poll options, metadata).
-The HTTP status code is stored in \code{attr(result, "http_status")}.
-This output represents the API confirmation that the poll was created and dispatched.
+A named list with the API response. The HTTP status code is
+stored in \code{attr(result, "http_status")}.
 }
 \description{
-Send a poll
+Sends a poll (question with selectable options) via
+Evolution API v2.
+}
+\examples{
+\dontrun{
+send_poll(client, "5581999990000",
+  name = "Favourite language?",
+  values = c("R", "Python", "Julia"),
+  selectable_count = 1)
+}
 }

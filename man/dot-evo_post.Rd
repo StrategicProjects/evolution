@@ -13,12 +13,16 @@
 
 \item{body}{List to be JSON-encoded as the request body.}
 
-\item{verbose}{Logical. If TRUE, print request/response debug via cli + httr2::req_verbose().}
+\item{verbose}{Logical. If \code{TRUE}, prints request/response diagnostics via
+\strong{cli}.}
 }
 \value{
-Parsed JSON as list (with raw HTTP status stored in attribute \code{http_status}).
+Parsed JSON as list (with raw HTTP status stored in attribute
+\code{http_status}).
 }
 \description{
-Perform a JSON POST request (internal)
+Sends a JSON POST to the Evolution API and returns the parsed response.
+Includes structured CLI logging when \code{verbose = TRUE} and robust error
+handling that surfaces the actual API error message.
 }
 \keyword{internal}
