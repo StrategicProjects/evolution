@@ -17,14 +17,20 @@ Main changes (see NEWS.md for the full list):
 ## Test environments
 
 * local macOS, R 4.6.0
-* (please add win-builder / R-hub results here before submitting)
+* GitHub Actions (R-CMD-check):
+  * ubuntu-latest, R devel
+  * ubuntu-latest, R release
+  * ubuntu-latest, R oldrel-1
+  * macos-latest, R release
+  * windows-latest, R release
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
 
-On the local macOS machine two NOTEs appear that are environment-specific
-and do not reflect the package:
+On all GitHub Actions environments the check is clean. On the local macOS
+machine two additional NOTEs appear that are environment-specific and do
+not reflect the package:
 
 * "Skipping checking HTML validation: 'tidy' doesn't look like recent
   enough HTML Tidy." -- the local HTML Tidy binary is outdated.
