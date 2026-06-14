@@ -17,7 +17,9 @@ send_whatsapp_audio(
 \item{client}{An \code{\link[=evo_client]{evo_client()}} object.}
 
 \item{number}{Character. Recipient number with country code
-(e.g., \code{"5581999990000"} or \code{"+5581999990000"}).}
+(e.g., \code{"5581999990000"} or \code{"+5581999990000"}). Formatting characters
+(spaces, dashes, parentheses and a leading \code{+}) are stripped before the
+request; a JID such as a group id \code{...@g.us} is passed through unchanged.}
 
 \item{audio}{URL, base64-encoded audio, or local file path
 (auto-encoded to base64). Supports \code{~} expansion.}

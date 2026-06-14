@@ -1,8 +1,8 @@
 Package: evolution
 Type: Package
 Title: A Client for 'Evolution Cloud API'
-Date: 2026-02-27
-Version: 0.1.0
+Date: 2026-06-14
+Version: 0.1.1
 Authors@R: c(
   person("Andre", "Leite", email = "leite@castlab.org", role = c("aut", "cre")),
   person("Hugo", "Vasconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),

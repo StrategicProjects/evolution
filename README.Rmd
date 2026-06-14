@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-> R wrapper for [Evolution API v2](https://doc.evolution-api.com) — a lightweight WhatsApp integration API.
+> R wrapper for [Evolution Cloud API](https://evoapicloud.com) — a lightweight WhatsApp integration API.
 
 ## Overview
 
@@ -200,5 +200,5 @@ Contributions are welcome! Open issues with reproducible examples and sanitised 
 
 ## License
 
-MIT © 2025 Andre Leite, Hugo Vasconcelos & Diogo Bezerra
+MIT © 2025–2026 Andre Leite, Hugo Vasconcelos & Diogo Bezerra
 See [LICENSE](LICENSE) for details.

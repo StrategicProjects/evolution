@@ -12,7 +12,7 @@
 
 <!-- badges: end -->
 
-> R wrapper for [Evolution API v2](https://doc.evolution-api.com) — a
+> R wrapper for [Evolution Cloud API](https://evoapicloud.com) — a
 > lightweight WhatsApp integration API.
 
 ## Overview
@@ -204,5 +204,5 @@ sanitised logs (remove API keys and phone numbers).
 
 ## License
 
-MIT © 2025 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
+MIT © 2025–2026 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
 [LICENSE](LICENSE) for details.
