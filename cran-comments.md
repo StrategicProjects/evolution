@@ -1,33 +1,37 @@
+## Submission summary
+
+This is a minor update (0.1.0 -> 0.1.1) that fixes a portability bug and
+improves input handling, documentation and test coverage.
+
+Main changes (see NEWS.md for the full list):
+
+* Fixed a bug where the package could fail to load on R 4.2-4.3: the
+  null-coalescing operator `%||%` is only part of base R since 4.4.0, but
+  the package declares `R (>= 4.2.0)`. It is now defined internally.
+* Recipient phone numbers are normalised before the request, and the
+  media helper no longer treats a mistyped file path as base64.
+* Corrected the copyright holder in the LICENSE file.
+* Added a testthat suite covering the offline helpers and argument
+  validation.
+
+## Test environments
+
+* local macOS, R 4.6.0
+* (please add win-builder / R-hub results here before submitting)
+
 ## R CMD check results
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+0 errors | 0 warnings | 0 notes
 
-## 1. Uwe Ligges
+On the local macOS machine two NOTEs appear that are environment-specific
+and do not reflect the package:
 
-The following issues reported by CRAN have been corrected:
-	1.	Title field
- 	 •	Fixed: The Title field in DESCRIPTION now starts with the package name.
-	 •	Old: Evolution API v2 Client for R
-	 •	New: A Client for 'Evolution Cloud API'
-	2.	URL field
-	•	Fixed: The URL field is now a valid list of URLs separated by commas, without invalid tags.
+* "Skipping checking HTML validation: 'tidy' doesn't look like recent
+  enough HTML Tidy." -- the local HTML Tidy binary is outdated.
+* A `.DS_Store` file in the check directory -- created by macOS Finder
+  inside the `.Rcheck` working directory during the run; it is not part
+  of the built tarball.
 
-## 2. Konstanze Lauseker
+## Downstream dependencies
 
-> Please add \value to .Rd files regarding exported methods and explain
-> the functions results in the documentation. Please write about the
-> structure of the output (class) and also what the output means. (If a
-> function does not return a value, please document that too, e.g.
-> \value{No return value, called for side effects} or similar)
-
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
-
-Dear Konstanze,
-
-Thank you for the review. I have added \\value sections to all affected .Rd files (send_buttons, send_location, send_media, send_poll, send_reaction, send_status, send_sticker, send_whatsapp_audio).
-Each now documents the returned object structure (parsed JSON response as an R list with an HTTP status attribute) or states explicitly when a function is called only for side effects.
-
-All documentation has been updated for consistency, and the package has been resubmitted.
-
-Best regards,
-André Leite
+There are currently no downstream dependencies on CRAN.
