@@ -3,4 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
-.DS_Store
+.claude
+evolution.Rcheck
+evolution_*.tar.gz

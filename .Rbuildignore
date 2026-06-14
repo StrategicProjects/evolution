@@ -6,3 +6,9 @@
 ^README\.Rmd$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^\.Rhistory$
+^\.DS_Store$
+^\.claude$
+^\.github$
+^evolution\.Rcheck$
+^evolution_.*\.tar\.gz$

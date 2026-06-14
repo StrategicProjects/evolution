@@ -40,7 +40,7 @@ evo_client <- function(base_url, api_key, instance) {
 
   req <- httr2::request(sub("/+$", "", base_url)) |>
     httr2::req_headers(apikey = api_key, `Content-Type` = "application/json") |>
-    httr2::req_user_agent("evolution-r/0.1.0 (httr2)") |>
+    httr2::req_user_agent("evolution-r/0.1.1 (httr2)") |>
     httr2::req_retry(max_tries = 3)
 
   structure(list(req = req, instance = instance), class = "evo_client")
@@ -105,8 +105,9 @@ print.evo_client <- function(x, ...) {
   if (isTRUE(verbose)) {
     cli::cli_rule(left = "{.strong evoapi} POST {path}")
     cli::cli_alert_info("Timeout: {timeout}s")
+    # The apikey travels in the request header, never in the body, so there is
+    # nothing to redact here; only large media payloads need truncating.
     show <- body
-    if (!is.null(show$apikey)) show$apikey <- "<REDACTED>"
     if (!is.null(show$media) && nchar(show$media) > 80) {
       show$media <- paste0(substr(show$media, 1, 40), "...<truncated>")
     }
@@ -219,7 +220,9 @@ jid <- function(number) {
 #'
 #' @param client An [evo_client()] object.
 #' @param number Character. Recipient number with country code
-#'   (e.g., `"5581999990000"` or `"+5581999990000"`).
+#'   (e.g., `"5581999990000"` or `"+5581999990000"`). Formatting characters
+#'   (spaces, dashes, parentheses and a leading `+`) are stripped before the
+#'   request; a JID such as a group id `...@@g.us` is passed through unchanged.
 #' @param text   Character. Message body.
 #' @param delay  Integer (ms). Optional presence delay before sending.
 #'   Simulates typing before the message is sent.
@@ -247,6 +250,7 @@ send_text <- function(client, number, text, delay = NULL,
                       mentioned = NULL, quoted = NULL, verbose = FALSE) {
   .assert_scalar_string(number, "number")
   .assert_scalar_string(text, "text")
+  number <- .normalize_number(number)
 
   body <- list(
     number            = number,
@@ -340,6 +344,7 @@ send_media <- function(client, number, mediatype, mimetype,
   .assert_scalar_string(number, "number")
   .assert_scalar_string(mimetype, "mimetype")
   .assert_scalar_string(file_name, "file_name")
+  number <- .normalize_number(number)
   if (!mediatype %in% c("image", "video", "document")) {
     cli::cli_abort(
       '{.arg mediatype} must be one of {.val image}, {.val video}, or {.val document}. Got {.val {mediatype}}.'
@@ -383,6 +388,7 @@ send_whatsapp_audio <- function(client, number, audio, delay = NULL,
                                 quoted = NULL, verbose = FALSE) {
   .assert_scalar_string(number, "number")
   .assert_scalar_string(audio, "audio")
+  number <- .normalize_number(number)
 
   audio_norm <- .normalize_media(audio)
   body <- list(
@@ -413,6 +419,7 @@ send_whatsapp_audio <- function(client, number, audio, delay = NULL,
 send_sticker <- function(client, number, sticker, delay = NULL, verbose = FALSE) {
   .assert_scalar_string(number, "number")
   .assert_scalar_string(sticker, "sticker")
+  number <- .normalize_number(number)
 
   sticker_norm <- .normalize_media(sticker)
   body <- list(number = number, sticker = sticker_norm, delay = delay)
@@ -444,6 +451,7 @@ send_location <- function(client, number, latitude, longitude,
   if (!is.numeric(latitude) || !is.numeric(longitude)) {
     cli::cli_abort("{.arg latitude} and {.arg longitude} must be numeric values.")
   }
+  number <- .normalize_number(number)
 
   body <- list(
     number    = number,
@@ -486,6 +494,7 @@ send_location <- function(client, number, latitude, longitude,
 #' @export
 send_contact <- function(client, number, contact, verbose = FALSE) {
   .assert_scalar_string(number, "number")
+  number <- .normalize_number(number)
 
   to_wuid <- function(num) {
     clean <- gsub("[^0-9]", "", num)
@@ -586,6 +595,7 @@ send_buttons <- function(client, number, title, description, footer, buttons,
   .assert_scalar_string(title, "title")
   .assert_scalar_string(description, "description")
   .assert_scalar_string(footer, "footer")
+  number <- .normalize_number(number)
   if (!is.list(buttons) || length(buttons) == 0L) {
     cli::cli_abort("{.arg buttons} must be a non-empty list of button definitions.")
   }
@@ -628,6 +638,7 @@ send_poll <- function(client, number, name, values,
                       selectable_count = 1L, verbose = FALSE) {
   .assert_scalar_string(number, "number")
   .assert_scalar_string(name, "name")
+  number <- .normalize_number(number)
   if (!is.character(values) || length(values) < 2L) {
     cli::cli_abort("{.arg values} must be a character vector with at least 2 options.")
   }
@@ -697,6 +708,7 @@ send_list <- function(client, number, title, description,
   .assert_scalar_string(title, "title")
   .assert_scalar_string(description, "description")
   .assert_scalar_string(button_text, "button_text")
+  number <- .normalize_number(number)
   if (!is.list(sections) || length(sections) == 0L) {
     cli::cli_abort("{.arg sections} must be a non-empty list of section definitions.")
   }
@@ -735,6 +747,7 @@ check_is_whatsapp <- function(client, numbers, verbose = FALSE) {
   if (!is.character(numbers) || length(numbers) == 0L) {
     cli::cli_abort("{.arg numbers} must be a non-empty character vector of phone numbers.")
   }
+  numbers <- vapply(numbers, .normalize_number, character(1L), USE.NAMES = FALSE)
 
   body <- list(numbers = as.list(numbers))
   .evo_post(client, .evo_path("chat", "whatsappNumbers", client$instance),
@@ -751,6 +764,24 @@ check_is_whatsapp <- function(client, numbers, verbose = FALSE) {
   if (!is.character(x) || length(x) != 1L || !nzchar(x)) {
     cli::cli_abort("{.arg {name}} must be a single non-empty character string.")
   }
+}
+
+#' Normalise a recipient number for the API
+#'
+#' @description Strips formatting characters (spaces, dashes, parentheses and
+#'   the leading `+`) from a plain phone number so the value sent to the API is
+#'   digits-only. Strings that already look like a JID (containing `@`, e.g. a
+#'   group id `...@g.us`) are returned unchanged.
+#' @keywords internal
+#' @param x A single character string (phone number or JID).
+#' @return A normalised character scalar.
+.normalize_number <- function(x) {
+  if (grepl("@", x, fixed = TRUE)) return(x)
+  cleaned <- gsub("[^0-9]", "", x)
+  if (!nzchar(cleaned)) {
+    cli::cli_abort("{.arg number} does not contain any digits: {.val {x}}.")
+  }
+  cleaned
 }
 
 #' Normalise media input (URL, file path, base64, data-URI)
@@ -780,13 +811,27 @@ check_is_whatsapp <- function(client, numbers, verbose = FALSE) {
     x <- sub("^data:.*;base64,", "", x)
   }
 
-  # Clean whitespace and validate as base64
-  x <- gsub("\\s+", "", x)
-  if (!grepl("^[A-Za-z0-9+/=]+$", x)) {
+  # Case 4: raw base64. Standard (padded) base64 uses only [A-Za-z0-9+/=],
+  # has no `.`, and its length is a multiple of 4. Requiring all three avoids
+  # silently treating a mistyped file path (e.g. "report.pdf") as base64.
+  x_clean <- gsub("\\s+", "", x)
+  is_base64 <- nzchar(x_clean) &&
+    grepl("^[A-Za-z0-9+/]+={0,2}$", x_clean) &&
+    nchar(x_clean) %% 4L == 0L
+  if (is_base64) return(x_clean)
+
+  # Otherwise: not a URL, an existing file, a data-URI, or valid base64.
+  # When the input looks like a path, point at the resolved location to help
+  # the user spot a typo instead of failing with a vague base64 error.
+  if (grepl("[.~/\\\\]", x) || grepl("\\s", x)) {
     cli::cli_abort(c(
-      "x" = "{.arg media} does not appear to be a valid URL, file path, or base64 string.",
-      "i" = "Expected one of: HTTP(S) URL, existing file path, base64 string, or data-URI."
+      "x" = "{.arg media} looks like a file path, but no file exists there.",
+      "i" = "Resolved path (with {.code ~} expanded): {.file {path.expand(x)}}.",
+      "i" = "Pass an existing file path, an HTTP(S) URL, or a base64 string."
     ))
   }
-  x
+  cli::cli_abort(c(
+    "x" = "{.arg media} does not appear to be a valid URL, file path, or base64 string.",
+    "i" = "Expected one of: HTTP(S) URL, existing file path, base64 string, or data-URI."
+  ))
 }

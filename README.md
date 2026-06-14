@@ -8,11 +8,12 @@
 ![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/evolution) 
 ![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/evolution) 
 ![License](https://img.shields.io/badge/license-MIT-darkviolet.svg) 
-![](https://img.shields.io/badge/devel%20version-0.1.0-orangered.svg)
+[![R-CMD-check](https://github.com/StrategicProjects/evolution/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StrategicProjects/evolution/actions/workflows/R-CMD-check.yaml)
+![](https://img.shields.io/badge/devel%20version-0.1.1-orangered.svg)
 
 <!-- badges: end -->
 
-> R wrapper for [Evolution API v2](https://doc.evolution-api.com) — a
+> R wrapper for [Evolution Cloud API](https://evoapicloud.com) — a
 > lightweight WhatsApp integration API.
 
 ## Overview
@@ -204,5 +205,5 @@ sanitised logs (remove API keys and phone numbers).
 
 ## License
 
-MIT © 2025 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
+MIT © 2025–2026 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
 [LICENSE](LICENSE) for details.

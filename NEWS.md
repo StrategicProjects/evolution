@@ -1,4 +1,43 @@
-# evolution (development version)
+# evolution 0.1.1
+
+## Bug fixes
+
+* Defined the null-coalescing operator `%||%` internally. It was used by
+  `.evo_post()` and `send_contact()` but is only part of base R since
+  4.4.0, so the package failed to load on R 4.2--4.3 (the declared
+  minimum is R 4.2.0).
+
+* `send_*()` functions now normalise the recipient `number`, stripping
+  formatting characters (spaces, dashes, parentheses and a leading `+`)
+  before the request. Previously a number such as `"+5581999990000"` was
+  sent verbatim and could be rejected by the API, even though it was
+  shown as valid in the documentation. JIDs (values containing `@`, e.g.
+  group ids `...@g.us`) are passed through unchanged.
+
+* `.normalize_media()` no longer silently treats a mistyped file path as
+  base64. It now requires standard (padded) base64 and emits a
+  path-aware error pointing at the resolved location when a file is not
+  found.
+
+* Corrected the copyright holder in `LICENSE`, which still referenced an
+  unrelated package.
+
+## Documentation
+
+* Unified the API reference URL across `README` and `DESCRIPTION`
+  (`https://evoapicloud.com`).
+
+* Removed a dead "apikey" redaction branch in the verbose logger (the
+  API key is only ever sent as a header, never in the request body).
+
+## Internal
+
+* Added a `testthat` suite covering the offline helpers (`jid()`,
+  `.normalize_media()`, `.compact()`, `.evo_path()`,
+  `.assert_scalar_string()`) and the argument-validation guard clauses of
+  the exported `send_*()` functions and `evo_client()`.
+
+* Added `.Rhistory` and `.DS_Store` to `.Rbuildignore`.
 
 # evolution 0.1.0
 
