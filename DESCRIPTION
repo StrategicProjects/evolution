@@ -6,7 +6,11 @@ Version: 0.1.1
 Authors@R: c(
   person("Andre", "Leite", email = "leite@castlab.org", role = c("aut", "cre")),
   person("Hugo", "Vasconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),
-  person("Diogo", "Bezerra", email = "diogo.bezerra@ufpe.br", role = "aut"))
+  person("Diogo", "Bezerra", email = "diogo.bezerra@ufpe.br", role = "aut"),
+  person("Marcos", "Wasiliew", email = "marcos.wasiliew@gmail.com", role = "aut",
+         comment = c(ORCID = "0009-0004-4694-3159")),
+  person("Júlia", "Nascimento Barreto", email = "juliabarreto@gd.seplag.pe.gov.br", role = "aut",
+         comment = c(ORCID = "0009-0004-2851-7770")))
 Description: Provides an 'R' interface to the 'Evolution API'
     <https://evoapicloud.com>, enabling sending and receiving 'WhatsApp'
     messages directly from 'R'. Functions include sending text, media
@@ -31,4 +35,4 @@ Suggests:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0
