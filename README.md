@@ -205,5 +205,5 @@ sanitised logs (remove API keys and phone numbers).
 
 ## License
 
-MIT © 2025–2026 Andre Leite, Hugo Vasconcelos & Diogo Bezerra See
+MIT © 2025–2026 André Leite, Hugo Vasconcelos & Diogo Bezerra See
 [LICENSE](LICENSE) for details.

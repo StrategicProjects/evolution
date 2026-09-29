@@ -201,5 +201,5 @@ Contributions are welcome! Open issues with reproducible examples and sanitised 
 
 ## License
 
-MIT © 2025–2026 Andre Leite, Hugo Vasconcelos & Diogo Bezerra
+MIT © 2025–2026 André Leite, Hugo Vasconcelos & Diogo Bezerra
 See [LICENSE](LICENSE) for details.
